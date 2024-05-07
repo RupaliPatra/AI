@@ -1,29 +1,30 @@
-#Implement n-queens problem using Hill-climbing / simulated annealing / A* algorithm etc.
-#Write a program for Water jug problem / Towers of Hano
+> import random              #the NumPy library enables efficient numerical operations on arrays and matrices, commonly used for scientific computing and data analysis.
 
-import random
 
-def is_valid(board):
-    n = len(board)
-    for i in range(n):
-        for j in range(i + 1, n):
-            if board[i] == board[j] or abs(board[i] - board[j]) == abs(i - j):
-                return False
-    return True
+> def is_valid(board):                         # Function to check if the current board state is valid (no two queensattacking each other)
+    n = len(board)                           # Get the size of the board (number of queens)
+    for i in range(n):                       # Loop through each queen (row)
+        for j in range(i + 1, n):            # Loop through subsequent queens (rows) to check for conflicts
+            if board[i] == board[j] or abs(board[i] - board[j]) == abs(i - j):                # Check if two queens are on the same column or diagonal
+                return False                  # If a conflict is found, return False (board state is invalid)
+                return True                   # If no conflicts are found, return True (board state is valid)
 
-def calculate_heuristic(board):
-    n = len(board)
-    conflicts = 0
-    for i in range(n):
-        for j in range(i + 1, n):
-            if board[i] == board[j] or abs(board[i] - board[j]) == abs(i - j):
-                conflicts += 1
-    return conflicts
 
-def hill_climbing(n):
-    current_board = [random.randint(0, n-1) for _ in range(n)]
-    current_heuristic = calculate_heuristic(current_board)
+> def calculate_heuristic(board):                # Function to calculate the number of conflicts (queens attacking each other)on the board)
+    n = len(board)                            # Get the size of the board (number of queens)
+    conflicts = 0                             # Initialize the counter for conflicts
+    for i in range(n):                         # Loop through each queen (row)
+        for j in range(i + 1, n):             # Loop through subsequent queens (rows) to check for conflicts
+            if board[i] == board[j] or abs(board[i] - board[j]) == abs(i - j):               # Check if two queens are on the same column or diagonal
+                conflicts += 1                 # If a conflict is found, increment the conflict counter
+                return conflicts               # Return the total number of conflicts on the board                
 
+
+> def hill_climbing(n):                           # Hill climbing algorithm to solve the N-Queens problem
+    
+    current_board = [random.randint(0, n-1) for _ in range(n)]           # Generate a random initial state (board configuration) with queens randomly placed on each column
+
+    current_heuristic = calculate_heuristic(current_board)          # Calculate heuristic value for the initial state (number of conflicts)
     while current_heuristic > 0:
         next_board = list(current_board)
         for i in range(n):
@@ -34,13 +35,14 @@ def hill_climbing(n):
                     if next_heuristic < current_heuristic:
                         current_board = list(next_board)
                         current_heuristic = next_heuristic
+                        if current_heuristic ==calculate_heuristic(current_board):
+                            break
+        return current_board
+        return current_board
 
-        if current_heuristic == calculate_heuristic(current_board):
-            break
 
-    return current_board
-
-# Example usage
-n = 8
+> # Example usage
+n=8
 solution = hill_climbing(n)
-print("N-Queens Solution:", solution)
+print("N-Queens Solution:", solution)        
+
