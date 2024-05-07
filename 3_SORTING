@@ -1,56 +1,56 @@
-> def bubble_sort(arr):
-    n = len(arr)
+# Bubble sort algorithm
+def bubble_sort(arr):
+    n = len(arr)  # Get the length of the array
 
-    for i in range(n):
-        for j in range(0, n-i-1):
-            if arr[j] > arr[j+1]:
-                arr[j], arr[j+1] = arr[j+1], arr[j]
+    for i in range(n):  # Loop through each element in the array
+        for j in range(0, n-i-1):  # Loop through the unsorted part of the array
+            if arr[j] > arr[j+1]:  # If current element is greater than the next one
+                arr[j], arr[j+1] = arr[j+1], arr[j]  # Swap elements if they are in the wrong order
 
+# Selection sort algorithm
+def selection_sort(arr):
+    n = len(arr)  # Get the length of the array
 
-> def selection_sort(arr):
-    n = len(arr)
+    for i in range(n):  # Loop through each element in the array
+        min_index = i  # Assume the current index is the minimum
+        for j in range(i+1, n):  # Loop through the unsorted part of the array
+            if arr[j] < arr[min_index]:  # If current element is smaller than the assumed minimum
+                min_index = j  # Update the index of the minimum element
 
-    for i in range(n):
-        min_index = i
-        for j in range(i+1, n):
-            if arr[j] < arr[min_index]:
-                min_index = j
+        arr[i], arr[min_index] = arr[min_index], arr[i]  # Swap the minimum element with the first unsorted element
 
-        arr[i], arr[min_index] = arr[min_index], arr[i]      
-
-
-> def merge_sort(arr):
-    if len(arr) > 1:
-        mid = len(arr) // 2
-        left_half = arr[:mid]
+# Merge sort algorithm
+def merge_sort(arr):
+    if len(arr) > 1:  # If the array has more than one element
+        mid = len(arr) // 2  # Calculate the midpoint of the array
+        left_half = arr[:mid]  # Divide the array into two halves
         right_half = arr[mid:]
 
-        merge_sort(left_half)
-        merge_sort(right_half)
+        merge_sort(left_half)  # Recursively sort the left half
+        merge_sort(right_half)  # Recursively sort the right half
 
-        i = j = k = 0
+        i = j = k = 0  # Initialize variables for merging
 
-        while i < len(left_half) and j < len(right_half):
-            if left_half[i] < right_half[j]:
+        while i < len(left_half) and j < len(right_half):  # Merge the sorted halves
+            if left_half[i] < right_half[j]:  # If element from left half is smaller
                 arr[k] = left_half[i]
                 i += 1
-            else:
+            else:  # If element from right half is smaller
                 arr[k] = right_half[j]
                 j += 1
             k += 1
 
-        while i < len(left_half):
+        while i < len(left_half):  # Copy the remaining elements of left half
             arr[k] = left_half[i]
             i += 1
             k += 1
 
-        while j < len(right_half):
+        while j < len(right_half):  # Copy the remaining elements of right half
             arr[k] = right_half[j]
             j += 1
-            k += 1  
+            k += 1
 
-
-> # Get user input for array
+# Get user input for array
 input_str = input("Enter space-separated integers for the array: ")
 arr = list(map(int, input_str.split()))
 
@@ -59,16 +59,16 @@ sorting_method = input("Enter sorting method (bubble/selection/merge): ").lower(
 
 # Perform the selected sorting method
 if sorting_method == 'bubble':
-    bubble_sorted_arr = list(arr)
-    bubble_sort(bubble_sorted_arr)
-    print("Bubble Sorted Array:", bubble_sorted_arr)
+    bubble_sorted_arr = list(arr)  # Create a copy of the original array
+    bubble_sort(bubble_sorted_arr)  # Perform bubble sort
+    print("Bubble Sorted Array:", bubble_sorted_arr)  # Print the sorted array
 elif sorting_method == 'selection':
-    selection_sorted_arr = list(arr)
-    selection_sort(selection_sorted_arr)
-    print("Selection Sorted Array:", selection_sorted_arr)
+    selection_sorted_arr = list(arr)  # Create a copy of the original array
+    selection_sort(selection_sorted_arr)  # Perform selection sort
+    print("Selection Sorted Array:", selection_sorted_arr)  # Print the sorted array
 elif sorting_method == 'merge':
-    merge_sorted_arr = list(arr)
-    merge_sort(merge_sorted_arr)
-    print("Merge Sorted Array:", merge_sorted_arr)
+    merge_sorted_arr = list(arr)  # Create a copy of the original array
+    merge_sort(merge_sorted_arr)  # Perform merge sort
+    print("Merge Sorted Array:", merge_sorted_arr)  # Print the sorted array
 else:
-    print("Invalid sorting method. Please enter 'bubble', 'selection', or 'merge'.")      
+    print("Invalid sorting method. Please enter 'bubble', 'selection', or 'merge'.")  # Error message for invalid input
