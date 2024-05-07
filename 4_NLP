@@ -10,20 +10,25 @@ import nltk
 from nltk import word_tokenize, FreqDist, pos_tag
 from nltk.corpus import stopwords
 
+# Download necessary NLTK resources
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger')
 
+# Function to tokenize text into words
 def text_tokenization(text):
     return word_tokenize(text)
 
+# Function to count word frequency
 def count_word_frequency(tokens):
     return FreqDist(tokens)
 
+# Function to remove stop words from tokens
 def remove_stop_words(tokens):
-    stop_words = set(stopwords.words('english'))
-    return [word for word in tokens if word.lower() not in stop_words]
+    stop_words = set(stopwords.words('english'))  # Get English stop words
+    return [word for word in tokens if word.lower() not in stop_words]  # Filter out stop words
 
+# Function to perform Part-of-Speech tagging
 def pos_tagging(tokens):
     return pos_tag(tokens)
 
@@ -34,20 +39,20 @@ text = input("Enter a sentence or a paragraph: ")
 operation = input("Select operation (a. Tokenization, b. Word Frequency, c. Remove Stop Words, d. POS Tagging): ").lower()
 
 # Perform the selected operation
-if operation == 'a':
+if operation == 'a':  # Tokenization
     tokens = text_tokenization(text)
     print("Tokens:", tokens)
-elif operation == 'b':
+elif operation == 'b':  # Word Frequency
     tokens = text_tokenization(text)
     word_frequency = count_word_frequency(tokens)
     print("Word Frequency:", word_frequency)
-elif operation == 'c':
+elif operation == 'c':  # Remove Stop Words
     tokens = text_tokenization(text)
     tokens_without_stopwords = remove_stop_words(tokens)
     print("Tokens without Stop Words:", tokens_without_stopwords)
-elif operation == 'd':
+elif operation == 'd':  # POS Tagging
     tokens = text_tokenization(text)
     pos_tags = pos_tagging(tokens)
     print("POS Tags:", pos_tags)
 else:
-    print("Invalid operation. Please select a, b, c, or d.")
+    print("Invalid operation. Please select a, b, c, or d.")  # Error message for invalid input
