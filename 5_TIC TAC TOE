@@ -1,49 +1,56 @@
-> def print_board(board):
+# Function to print the Tic-Tac-Toe board
+def print_board(board):
     for row in board:
-        print("|".join(row))
-        print("-----")
+        print("|".join(row))  # Print each row of the board
+        print("-----")  # Print horizontal line between rows
 
+# Function to check if a player has won
 def check_winner(board, player):
+    # Check each row for a win
     for row in board:
-        if all(cell == player for cell in row):
-            return True
+        if all(cell == player for cell in row):  # If all cells in a row are the same as the player's symbol
+            return True  # Player wins
+    # Check each column for a win
     for col in range(3):
-        if all(board[row][col] == player for row in range(3)):
-            return True
-    if all(board[i][i] == player for i in range(3)) or all(board[i][2-i] == player for i in range(3)):
-        return True
-    return False
+        if all(board[row][col] == player for row in range(3)):  # If all cells in a column are the same as the player's symbol
+            return True  # Player wins
+    # Check diagonals for a win
+    if all(board[i][i] == player for i in range(3)) or all(board[i][2-i] == player for i in range(3)):  # If either diagonal has all cells the same as the player's symbol
+        return True  # Player wins
+    return False  # No winner yet
 
+# Function to check if the board is full
 def is_board_full(board):
-    return all(cell != " " for row in board for cell in row)
+    return all(cell != " " for row in board for cell in row)  # If there are no empty cells left
 
+# Main Tic-Tac-Toe game function
 def tic_tac_toe():
-    board = [[" "]*3 for _ in range(3)]
-    players = ["X", "O"]
-    current_player = 0
+    board = [[" "]*3 for _ in range(3)]  # Create an empty board
+    players = ["X", "O"]  # Players' symbols
+    current_player = 0  # Index of the current player
 
     print("Welcome to Tic-Tac-Toe!")
 
-    while True:
-        print_board(board)
-        row = int(input(f"Player {players[current_player]}, enter row (0, 1, or 2): "))
-        col = int(input(f"Player {players[current_player]}, enter column (0, 1, or 2): "))
+    while True:  # Main game loop
+        print_board(board)  # Print the current board
+        row = int(input(f"Player {players[current_player]}, enter row (0, 1, or 2): "))  # Get row input from the current player
+        col = int(input(f"Player {players[current_player]}, enter column (0, 1, or 2): "))  # Get column input from the current player
 
-        if board[row][col] != " ":
-            print("That position is already taken. Try again.")
-            continue
+        if board[row][col] != " ":  # If the chosen position is already taken
+            print("That position is already taken. Try again.")  # Print error message
+            continue  # Skip the rest of the loop and start over
 
-        board[row][col] = players[current_player]
-        
-        if check_winner(board, players[current_player]):
-            print_board(board)
-            print(f"Player {players[current_player]} wins!")
-            break
-        elif is_board_full(board):
-            print_board(board)
-            print("It's a draw!")
-            break
+        board[row][col] = players[current_player]  # Update the board with the current player's symbol
 
-        current_player = (current_player + 1) % 2
+        if check_winner(board, players[current_player]):  # If the current player has won
+            print_board(board)  # Print the final board
+            print(f"Player {players[current_player]} wins!")  # Print win message
+            break  # End the game loop
+        elif is_board_full(board):  # If the board is full and there's no winner
+            print_board(board)  # Print the final board
+            print("It's a draw!")  # Print draw message
+            break  # End the game loop
 
-tic_tac_toe()
+        current_player = (current_player + 1) % 2  # Switch to the other player for the next turn
+
+tic_tac_toe()  # Start the Tic-Tac-Toe game
