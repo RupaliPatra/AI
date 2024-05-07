@@ -1,7 +1,4 @@
-#Write a program for sorting algorithms using appropriate knowledge representation and
-#reasoning techniques
-
-def bubble_sort(arr):
+> def bubble_sort(arr):
     n = len(arr)
 
     for i in range(n):
@@ -9,7 +6,8 @@ def bubble_sort(arr):
             if arr[j] > arr[j+1]:
                 arr[j], arr[j+1] = arr[j+1], arr[j]
 
-def selection_sort(arr):
+
+> def selection_sort(arr):
     n = len(arr)
 
     for i in range(n):
@@ -18,9 +16,10 @@ def selection_sort(arr):
             if arr[j] < arr[min_index]:
                 min_index = j
 
-        arr[i], arr[min_index] = arr[min_index], arr[i]
+        arr[i], arr[min_index] = arr[min_index], arr[i]      
 
-def merge_sort(arr):
+
+> def merge_sort(arr):
     if len(arr) > 1:
         mid = len(arr) // 2
         left_half = arr[:mid]
@@ -48,9 +47,10 @@ def merge_sort(arr):
         while j < len(right_half):
             arr[k] = right_half[j]
             j += 1
-            k += 1
+            k += 1  
 
-# Get user input for array
+
+> # Get user input for array
 input_str = input("Enter space-separated integers for the array: ")
 arr = list(map(int, input_str.split()))
 
@@ -71,4 +71,4 @@ elif sorting_method == 'merge':
     merge_sort(merge_sorted_arr)
     print("Merge Sorted Array:", merge_sorted_arr)
 else:
-    print("Invalid sorting method. Please enter 'bubble', 'selection', or 'merge'.")
+    print("Invalid sorting method. Please enter 'bubble', 'selection', or 'merge'.")      
