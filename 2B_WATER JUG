@@ -1,44 +1,45 @@
-> from queue import Queue
+from queue import Queue  # Import the Queue class from the queue module
 
+def water_jug_bfs(capacity_jug1, capacity_jug2, target):
+    visited_states = set()  # Initialize a set to store visited states
+    q = Queue()  # Create a queue to perform breadth-first search
+    q.put((0, 0))  # Add the initial state (0, 0) to the queue
 
-> def water_jug_bfs(capacity_jug1, capacity_jug2, target):
-    visited_states = set()
-    q = Queue()
-    q.put((0, 0))
+    while not q.empty():  # Continue loop until the queue is empty
+        current_state = q.get()  # Get the current state from the front of the queue
 
-    while not q.empty():
-        current_state = q.get()
-
-        if current_state in visited_states:
+        if current_state in visited_states:  # Skip if the current state has been visited before
             continue
 
-        visited_states.add(current_state)
+        visited_states.add(current_state)  # Mark the current state as visited
 
-        jug1, jug2 = current_state
-        if jug1 == target or jug2 == target:
-            return current_state
+        jug1, jug2 = current_state  # Unpack the current state into jug1 and jug2
+        if jug1 == target or jug2 == target:  # If one of the jugs has the target amount of water
+            return current_state  # Return the current state as the solution
 
-        # Fill jug1
+        # Perform possible operations and add resulting states to the queue
+
+        # Fill jug1 to its maximum capacity
         q.put((capacity_jug1, jug2))
-        # Fill jug2
+        # Fill jug2 to its maximum capacity
         q.put((jug1, capacity_jug2))
         # Empty jug1
         q.put((0, jug2))
         # Empty jug2
         q.put((jug1, 0))
-        # Pour jug1 to jug2
-        pour_amount = min(jug1, capacity_jug2 - jug2)
+        # Pour water from jug1 to jug2
+        pour_amount = min(jug1, capacity_jug2 - jug2)  # Calculate the amount to pour
         q.put((jug1 - pour_amount, jug2 + pour_amount))
-        # Pour jug2 to jug1
-        pour_amount = min(jug2, capacity_jug1 - jug1)
+        # Pour water from jug2 to jug1
+        pour_amount = min(jug2, capacity_jug1 - jug1)  # Calculate the amount to pour
         q.put((jug1 + pour_amount, jug2 - pour_amount))
 
-    return None
+    return None  # Return None if no solution is found
 
-
-> # Example usage
+# Example usage
 capacity_jug1 = 5
 capacity_jug2 = 4
 target = 2
 result = water_jug_bfs(capacity_jug1, capacity_jug2, target)
-print("Water Jug Solution:", result)    
+print("Water Jug Solution:", result)  # Print the solution
+ 
