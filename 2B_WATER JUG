@@ -1,8 +1,7 @@
-#Write a program for Water jug problem / Towers of Hano
+> from queue import Queue
 
-from queue import Queue
 
-def water_jug_bfs(capacity_jug1, capacity_jug2, target):
+> def water_jug_bfs(capacity_jug1, capacity_jug2, target):
     visited_states = set()
     q = Queue()
     q.put((0, 0))
@@ -36,9 +35,10 @@ def water_jug_bfs(capacity_jug1, capacity_jug2, target):
 
     return None
 
-# Example usage
-capacity_jug1 = 4
-capacity_jug2 = 3
+
+> # Example usage
+capacity_jug1 = 5
+capacity_jug2 = 4
 target = 2
 result = water_jug_bfs(capacity_jug1, capacity_jug2, target)
-print("Water Jug Solution:", result)
+print("Water Jug Solution:", result)    
